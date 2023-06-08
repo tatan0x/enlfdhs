@@ -17,9 +17,10 @@ mount /mnt
 btrfs su cr /mnt/@
 btrfs su cr /mnt/@home
 umount /mnt
+mkdir -p /mnt/home
+mkdir -p /mnt/boot/efi
 mount -o noatime,ssd,space_cache=v2,compress=zstd,discard=async,subvol=@ $system_path /mnt
 mount -o noatime,ssd,space_cache=v2,compress=zstd,discard=async,subvol=@home $system_path /mnt/home
-mkdir -p /mnt/boot/efi
 mount $efi_path /mnt/boot/efi
 
 reflector -c Indonesia -a 6 --sort rate --save /etc/pacman.d/mirrorlist
