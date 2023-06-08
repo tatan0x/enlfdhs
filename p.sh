@@ -13,11 +13,11 @@ mkfs.vfat -F32 $efi_path
 [ ! -z "$swap_path" ] && { mkswap $swap_path && swapon $swap_path; }
 mkfs.btrfs $system_path
 
-mount -o noatime,ssd,space_cache=v2,compress=zstd,discard=async $system_path /mnt
+mount /mnt
 btrfs su cr /mnt/@
 btrfs su cr /mnt/@home
 umount /mnt
-mount -o noatime,ssd,space_cache=v2,compress=zstd,discard=async $system_path /mnt
+mount -o noatime,ssd,space_cache=v2,compress=zstd,discard=async,subvol=@ $system_path /mnt
 mount -o noatime,ssd,space_cache=v2,compress=zstd,discard=async,subvol=@home $system_path /mnt/home
 mkdir -p /mnt/boot/efi
 mount $efi_path /mnt/boot/efi
